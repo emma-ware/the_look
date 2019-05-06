@@ -3,6 +3,12 @@ connection: "demo_data_db"
 # include all the views
 include: "*.view"
 
+label: "{% if _user_attributes['department'] == 'Marketing' %}
+Standard Margin
+{% elsif _user_attributes['department'] == 'Sales' %}
+Operating Margin
+{% else %} Gross Margin {% endif %}"
+
 datagroup: the_look_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
