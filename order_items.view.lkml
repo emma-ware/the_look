@@ -38,6 +38,18 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: gross_margin {
+    label: "{% if _user_attributes['department'] == 'Marketing' %}
+    Standard Margin
+    {% elsif _user_attributes['department'] == 'Sales' %}
+    Operating Margin
+    {% else %} Gross Margin {% endif %}"
+    type: number
+    value_format_name: usd
+    sql: ${sale_price} - ${inventory_items.cost} ;;
+  }
+
+
   measure: count {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]
